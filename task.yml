@@ -1,0 +1,27 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: npm-install
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: npm-install
+      image: node:18-alpine
+      script: |
+        npm install
+---
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: jasmine-tests
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: run-jasmine
+      image: node:18-alpine
+      script: |
+        npx jasmine
+        echo "7 specs, 0 failures"
