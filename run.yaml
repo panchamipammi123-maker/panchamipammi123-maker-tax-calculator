@@ -1,0 +1,18 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: tax-calculator-run
+spec:
+  pipelineRef:
+    name: tax-calculator-pipeline
+  params:
+    - name: git-url
+      value: https://github.com/panchamipammi123-maker/panchamipammi123-maker-tax-calculator
+    - name: git-revision
+      value: main
+    - name: image
+      value: us.icr.io/panchamipammi123-maker/tax-calculator
+  workspaces:
+    - name: source
+      persistentVolumeClaim:
+        claimName: tekton-pvc
